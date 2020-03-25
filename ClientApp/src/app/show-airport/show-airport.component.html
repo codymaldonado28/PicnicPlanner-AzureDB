@@ -1,0 +1,20 @@
+<div *ngIf="Airport" style="text-align: center;">
+  <h1>{{Airport.name}}</h1>
+  <h4>{{Airport.region}} {{Airport.municipality}}</h4>
+  <div *ngIf="Weather"
+    style="vertical-align: top; height: 400px; width: 100%; padding: 10px;  overflow-y: scroll; overflow-x: hidden; margin:10px; border: 1px black solid;">
+    <div *ngFor="let date of Weather.list"
+      style="height: 200px; width: 200px; vertical-align: top; text-align: center; border: 1px dotted black; margin:5px; padding: 10px; display: inline-block;"
+      (click)="ChooseDate(date)">
+      <h6>{{date.dt_txt}}</h6>
+      <p>{{date.weather[0].description}}</p>
+      <p>Temperature: {{date.main.temp}}</p>
+      <p>Feels Like: {{date.main.feels_like}}</p>
+    </div>
+  </div>
+  <div *ngIf="PicnicDate">
+      <h1>{{PicnicDate.dt_txt}}</h1>
+      <p>{{PicnicDate.weather[0].description}} ------------------ Temperature:{{PicnicDate.main.temp}} -------------- Feels Like: {{PicnicDate.main.feels_like}}</p>
+      <p>   Wind: {{PicnicDate.wind.speed}}mph from {{WindDir}} </p>
+  </div>
+</div>

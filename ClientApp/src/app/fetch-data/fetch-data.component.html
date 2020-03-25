@@ -1,0 +1,8 @@
+<h1>Airports</h1>
+<div *ngIf= "allAirports"> 
+    <div style="height: 500px; overflow-x:hidden; overflow-y: scroll;">
+        <ul *ngFor="let airport of allAirports">
+            <li><p><a [routerLink]="['/airport/', airport.airportId]">{{airport.name}}</a>        {{airport.region}}      {{airport.municipality}}</p></li>
+        </ul>
+    </div>  
+</div>
