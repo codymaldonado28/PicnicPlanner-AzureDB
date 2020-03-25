@@ -56,7 +56,7 @@ export class ShowAirportComponent implements OnInit {
     console.log(this.PicnicDate);
     this.WindDir = this.DegToDirection(this.PicnicDate.wind.deg)
     console.log(this.WindDir)
-    this.GetFlightPath()
+    // this.GetFlightPath()
   }
   DegToDirection(deg){
     var degree = deg % 360;
