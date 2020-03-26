@@ -2,11 +2,11 @@
 <form style="margin:10px;">
         <input style ="margin-top: 10px;"type="text" name="SearchAirport" [(ngModel)]="SearchAirport" /><button (click)="getAllAirports()">Search</button>
 </form>
-<p *ngIf="!allAirports"><em style="color: rgba(8, 98, 172, 0.918);font-size: x-large; margin-left: 10px;">Loading Airports...</em></p>
+<p *ngIf="!allAirports" style="font-size: small; margin-left: 35%; margin-top: 150px;" ><em><img src="https://static.wixstatic.com/media/430377_e43058e053634b499f67c63cd1e3ba02~mv2.gif" alt="Loading Logo"><br><span style="margin-left: 80px; color: rgba(41, 166, 224, 0.918);">Loading Airports ...</span> </em></p>
 <div *ngIf= "allAirports"> 
     <div style="height: 500px; width: 100%; overflow-x:hidden; overflow-y: scroll; margin-top: 30px; padding: 10px;">
         <ul *ngFor="let airport of allAirports"  style="list-style-type:square;">
-            <li><p><a [routerLink]="['/airport/', airport.airportId]" style="color: rgba(8, 98, 172, 0.918)">{{airport.name}}</a>        {{airport.region}}      {{airport.municipality}}</p></li>
+            <li><p><a [routerLink]="['/airport/', airport.airportId]" style="color: rgba(41, 166, 224, 0.918)">{{airport.name}}</a>        {{airport.region}}      {{airport.municipality}}</p></li>
         </ul>
     </div>  
 </div>
