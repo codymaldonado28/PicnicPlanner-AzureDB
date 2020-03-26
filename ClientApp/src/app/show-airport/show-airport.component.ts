@@ -16,6 +16,7 @@ export class ShowAirportComponent implements OnInit {
   WindDir: any;
   RunwayData: any;
   FlightPath: any;
+  Error: any;
   constructor(
     private _httpService: HttpService,
     private _router: Router,
@@ -33,9 +34,14 @@ export class ShowAirportComponent implements OnInit {
   getAirport(){
     let obs = this._httpService.showAirport(this.AirportId)
     obs.subscribe(data => {
-      console.log(data)
-      this.Airport=data;
+      console.log(data);
+      if(data == null){
+        console.log("No Data")
+        this.Error="No Airport Data"
+      }
+      else{this.Airport=data;
       this.GetWeather(this.Airport.latitude_deg, this.Airport.longitude_deg)
+      }
     })
   }
   getRunways(){
