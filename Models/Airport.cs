@@ -13,6 +13,5 @@ namespace PicnicPlanner3.Models
         public double Longitude_deg {get; set;}
         public string Region {get; set;}
         public string Municipality {get; set;}
-        public List<Runway> Runways{get; set;}
     }
 }

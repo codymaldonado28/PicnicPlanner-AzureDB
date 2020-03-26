@@ -16,6 +16,10 @@ export class HttpService {
     console.log(airportid);
     return this._http.get(`http://localhost:5000/api/airport/${airportid}`)
   }
+  AirportSearch(search){
+    console.log(search);
+    return this._http.get(`http://localhost:5000/api/airport/search/${search}`)
+  }
   getRunways(airportId){
     console.log(airportId);
     var airportid = airportId.airportId;

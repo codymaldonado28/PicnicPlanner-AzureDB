@@ -10,25 +10,40 @@ using PicnicPlanner3.Models;
 namespace PicnicPlanner3.Controllers {
         [Produces ("application/json")]
         [Route ("api")]
-        public class SampleDataController : Controller {
+        public class HomeController : Controller {
             private HomeContext dbContext;
-            public SampleDataController(HomeContext context)
+            public HomeController(HomeContext context)
             {
                 dbContext = context;
             }
+
+
             [HttpGet ("airports")]
             public List<Airport> airports()
             {
                 List<Airport> AllAirports = dbContext.Airports.Where(a => a.Type != "closed" && a.Type!="heliport").OrderBy(a => a.Name).ToList();
                 return AllAirports;
             }
+
+
             [HttpGet ("airport/{airportId}")]
             public Airport ShowAirport(int airportId)
             {
 
-                Airport airportInDB = dbContext.Airports.Include(a => a.Runways).FirstOrDefault(a => a.AirportId == airportId);
+                Airport airportInDB = dbContext.Airports.FirstOrDefault(a => a.AirportId == airportId);
                 return airportInDB;
             }
+
+
+            [HttpGet ("airport/search/{search}")]
+            public List<Airport> SearchAirport(string search)
+            {
+
+                List<Airport> SearchedAirports = dbContext.Airports.Where(a => a.Name.Contains(search) || a.Region.Contains(search) || a.Municipality.Contains(search)).ToList();
+                return SearchedAirports;
+            }
+
+
             [HttpGet ("runways/{airportId}")]
             public List<Runway> getRunways(int airportId)
             {

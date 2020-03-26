@@ -8,8 +8,6 @@ import { HttpService } from './http.service';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ShowAirportComponent } from './show-airport/show-airport.component';
 
 @NgModule({
@@ -17,8 +15,6 @@ import { ShowAirportComponent } from './show-airport/show-airport.component';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     ShowAirportComponent
   ],
   imports: [
@@ -27,8 +23,6 @@ import { ShowAirportComponent } from './show-airport/show-airport.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'airport/:airportId', component: ShowAirportComponent, pathMatch:'full'}
     ])
   ],

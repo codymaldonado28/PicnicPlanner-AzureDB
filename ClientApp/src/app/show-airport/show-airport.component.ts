@@ -14,6 +14,8 @@ export class ShowAirportComponent implements OnInit {
   PicnicDate: any;
   AirportRunways: any;
   WindDir: any;
+  RunwayData: any;
+  FlightPath: any;
   constructor(
     private _httpService: HttpService,
     private _router: Router,
@@ -37,10 +39,21 @@ export class ShowAirportComponent implements OnInit {
     })
   }
   getRunways(){
+    this.RunwayData=false;
     let obs = this._httpService.getRunways(this.AirportId)
     obs.subscribe(data => {
       this.AirportRunways = data;
       console.log(this.AirportRunways);
+      if(this.AirportRunways.length>0){
+        console.log("THere is some data");
+        for(var i =0; i<this.AirportRunways.length; i++){
+          if(this.AirportRunways[i].le_Heading_deg != 3 || this.AirportRunways[i].he_Heading_deg !=3){
+            this.RunwayData=true;
+            break;
+          }
+        }
+      }
+      console.log(this.RunwayData)
     })
   }
   GetWeather(lat,long){
@@ -54,36 +67,61 @@ export class ShowAirportComponent implements OnInit {
     this.PicnicDate=null;
     this.PicnicDate=date;
     console.log(this.PicnicDate);
-    this.WindDir = this.DegToDirection(this.PicnicDate.wind.deg)
+    this.WindDir = this.PicnicDate.wind.deg
     console.log(this.WindDir)
-    // this.GetFlightPath()
+    this.GetFlightPath()
+  }
+  UnChooseDate(date){
+    this.PicnicDate=null;
   }
   DegToDirection(deg){
     var degree = deg % 360;
     if (degree < 22.5){
-      return "South"
-    }
-    else if (degree >= 22.5 && degree < 67.5){
-      return "South East"
-    }
-    else if(degree >= 67.5 && degree < 112.5){
-      return "East"
-    }
-    else if (degree >= 112.5 && degree < 157.5 ){
-      return "North East"
-    }
-    else if (degree >= 157.5 && degree < 202.5){
       return "North"
     }
-    else if(degree >= 202.5 && degree < 247.5){
+    else if (degree >= 22.5 && degree < 67.5){
       return "North West"
     }
-    else if (degree >= 247.5 && degree < 292.5){
+    else if(degree >= 67.5 && degree < 112.5){
       return "West"
     }
-    else{
+    else if (degree >= 112.5 && degree < 157.5 ){
       return "South West"
     }
-    
+    else if (degree >= 157.5 && degree < 202.5){
+      return "South"
+    }
+    else if(degree >= 202.5 && degree < 247.5){
+      return "South East"
+    }
+    else if (degree >= 247.5 && degree < 292.5){
+      return "East"
+    }
+    else{
+      return "North East"
+    }
+    }
+    GetFlightPath(){
+      if (this.RunwayData){
+        let degsArray: number[] = [];
+        for(var i =0; i<this.AirportRunways.length; i++){
+          if(this.AirportRunways[i].le_Heading_deg != 3){
+            degsArray.push(this.AirportRunways[i].le_Heading_deg)
+          }
+          if(this.AirportRunways[i].he_Heading_deg != 3){
+            degsArray.push(this.AirportRunways[i].le_Heading_deg)
+          }
+        }
+        let min= Math.abs(this.PicnicDate.wind.deg - degsArray[0]);
+        let minSpot=0;
+        for(var j=1; j<degsArray.length; j++){
+          if (degsArray[j] < min){
+            min = degsArray[j]
+            minSpot = j
+          }
+        }
+        this.FlightPath=degsArray[minSpot];
+        console.log(this.FlightPath);
+      }
     }
   }

@@ -8,6 +8,5 @@ namespace PicnicPlanner3.Models
         public int Le_Heading_deg {get; set;}
         public int He_Heading_deg {get; set;}
         public int AirportId {get; set;}
-        public Airport RunwayLocation {get; set;}
     }
 }

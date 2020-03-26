@@ -1,20 +1,37 @@
 <div *ngIf="Airport" style="text-align: center;">
   <h1>{{Airport.name}}</h1>
-  <h4>{{Airport.region}} {{Airport.municipality}}</h4>
+  <h4 style="color: rgba(8, 98, 172, 0.918)">{{Airport.region}} {{Airport.municipality}}</h4>
+  <p>Choose A Date and Time For Your Picnic</p>
   <div *ngIf="Weather"
-    style="vertical-align: top; height: 400px; width: 100%; padding: 10px;  overflow-y: scroll; overflow-x: hidden; margin:10px; border: 1px black solid;">
-    <div *ngFor="let date of Weather.list"
-      style="height: 200px; width: 200px; vertical-align: top; text-align: center; border: 1px dotted black; margin:5px; padding: 10px; display: inline-block;"
+    style="vertical-align: top; height: 420px; width: 100%; padding: 10px;  overflow-y: scroll; overflow-x: hidden; margin:10px; border: 1px rgba(8, 98, 172, 0.918) solid;">
+    <div *ngFor="let date of Weather.list" style="height: 200px; width: 200px; vertical-align: top; text-align: center; margin:5px; display: inline-block;">
+      <div *ngIf="date == PicnicDate" style="background-color:rgba(8, 98, 172, 0.918);color:white;height: 200px; width: 200px; vertical-align: top; text-align: center; border: 1px solid rgba(8, 98, 172, 0.918); margin:5px; padding: 10px; padding-top: 20px; display: inline-block; border-radius: 2px;"
+      (click)="UnChooseDate(date)">
+      <h6>{{date.dt_txt}}</h6>
+      <p>{{date.weather[0].description}}</p>
+      <p>Temperature: {{date.main.temp}} F°</p>
+      <p>Feels Like: {{date.main.feels_like}} F°</p>
+    </div>
+      <div *ngIf="date != PicnicDate" style="height: 200px; width: 200px; vertical-align: top; text-align: center; border: 1px solid rgba(8, 98, 172, 0.918); margin:5px; padding: 10px; padding-top: 20px; display: inline-block;border-radius: 2px;"
       (click)="ChooseDate(date)">
       <h6>{{date.dt_txt}}</h6>
       <p>{{date.weather[0].description}}</p>
-      <p>Temperature: {{date.main.temp}}</p>
-      <p>Feels Like: {{date.main.feels_like}}</p>
+      <p>Temperature: {{date.main.temp}} F°</p>
+      <p>Feels Like: {{date.main.feels_like}} F°</p>
+    </div>
     </div>
   </div>
   <div *ngIf="PicnicDate">
-      <h1>{{PicnicDate.dt_txt}}</h1>
-      <p>{{PicnicDate.weather[0].description}} ------------------ Temperature:{{PicnicDate.main.temp}} -------------- Feels Like: {{PicnicDate.main.feels_like}}</p>
-      <p>   Wind: {{PicnicDate.wind.speed}}mph from {{WindDir}} </p>
+      <h1 style="color: rgba(8, 98, 172, 0.918)">{{PicnicDate.dt_txt}}</h1>
+      <p style="color: rgba(8, 98, 172, 0.918)">{{PicnicDate.weather[0].description}} -------------- Temperature:{{PicnicDate.main.temp}} F° ----------- Feels Like: {{PicnicDate.main.feels_like}} F°</p>
+      <p>   Wind is blowing {{DegToDirection(WindDir)}} at {{PicnicDate.wind.speed}}mph</p>
+      <div *ngIf="RunwayData == false" style="color:red">
+        <h3>NOT ENOUGH RUNWAY DATA FROM AIRPORT</h3>
+        <p>Based only on wind: Planes Over Head Traffic will Be {{WindDir}}°{{DegToDirection(WindDir)}} of {{Airport.name}}</p>
+      </div>
+      <div *ngIf="RunwayData == true">
+        <h3>Planes Over Head Traffic Will Be {{FlightPath}}° {{DegToDirection(FlightPath)}} of {{Airport.name}}</h3>
+          <p></p>
+      </div>
   </div>
 </div>
