@@ -1,3 +1,4 @@
+<h1 *ngIf="Error" style="color: red;">Error: {{Error}}</h1>
 <div *ngIf="Airport" style="text-align: center;">
   <h1>{{Airport.name}}</h1>
   <h4 style="color: rgba(41, 166, 224, 0.918)">{{Airport.region}} {{Airport.municipality}}</h4>
