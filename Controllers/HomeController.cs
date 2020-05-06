@@ -27,7 +27,7 @@ namespace PicnicPlanner3.Controllers {
 
 
             [HttpGet ("airport/{airportId}")]
-            public Airport ShowAirport(int airportId)
+            public Airport ShowAirport(string airportId)
             {
 
                 Airport airportInDB = dbContext.Airports.FirstOrDefault(a => a.AirportId == airportId);
@@ -45,7 +45,7 @@ namespace PicnicPlanner3.Controllers {
 
 
             [HttpGet ("runways/{airportId}")]
-            public List<Runway> getRunways(int airportId)
+            public List<Runway> getRunways(string airportId)
             {
 
                 List<Runway> RunwaysForAirport = dbContext.Runways.Where(r => r.AirportId == airportId).ToList();

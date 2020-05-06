@@ -8,7 +8,7 @@ export class HttpService {
 
   constructor(private _http: HttpClient) { }
   getAllAirports(){
-    return this._http.get('/api/airports');
+    return this._http.get('http://localhost:5000/api/airports');
   }
   showAirport(airportId){
     console.log(airportId);

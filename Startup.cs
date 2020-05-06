@@ -29,7 +29,7 @@ namespace PicnicPlanner3
                 });
             });
 
-            services.AddDbContext<HomeContext>(options => options.UseMySql(Configuration["DBInfo:ConnectionString"]));
+            services.AddDbContext<HomeContext>(options => options.UseSqlServer(Configuration["DBInfo:ConnectionString"]));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -43,7 +43,7 @@ namespace PicnicPlanner3
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.IsProduction())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -71,7 +71,7 @@ namespace PicnicPlanner3
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
+                if (env.IsDevelopment() || env.IsProduction())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
                 }
