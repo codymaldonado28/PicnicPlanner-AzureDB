@@ -30,6 +30,7 @@ export class ShowAirportComponent implements OnInit {
     console.log(this.AirportId)
     this.getAirport();
     this.getRunways();
+    console.log(this.DegToDirection(300))
   }
   getAirport() {
     let obs = this._httpService.showAirport(this.AirportId)
@@ -83,8 +84,8 @@ export class ShowAirportComponent implements OnInit {
   }
   DegToDirection(deg) {
     var degree = deg % 360;
-    if (degree >= 337.5 && degree < 22.5) {
-      return "North"
+    if (degree >= 292.5 && degree < 337.5) {
+      return "North West"
     }
     else if (degree >= 22.5 && degree < 67.5) {
       return "North East"
@@ -105,7 +106,7 @@ export class ShowAirportComponent implements OnInit {
       return "West"
     }
     else {
-      return "North West"
+      return "North"
     }
   }
   GetFlightPath() {
